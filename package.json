@@ -1,0 +1,27 @@
+{
+  "name": "simon_x_game",
+  "version": "1.0.0",
+  "description": "Simon game with extra features",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "sass": "^1.26.11"
+  },
+  "scripts": {
+    "start": "npm run build && node app",
+    "dev": "NODE_ENV=development nodemon parcel app",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eskaine/simon_x_game.git"
+  },
+  "author": "eskaine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eskaine/simon_x_game/issues"
+  },
+  "homepage": "https://github.com/eskaine/simon_x_game#readme"
+}
