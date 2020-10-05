@@ -1,0 +1,160 @@
+:root {
+	--center-offset: 5.5rem;
+	--center-text-offset: 2rem;
+	--toggle-width: 4rem;
+	--toggle-height: 2rem;
+	--toggle-padding: .5em;
+	--toggle-margin-top: -1.7rem;
+	--toggle-btn-size: calc((var(--toggle-width) - 1rem) / 2);
+	--layout-margin: 1rem;
+
+	--widthOffsetA: 4.5em;
+	--widthOffsetB: 9em;
+	--heightOffSetA: 20.3em;
+    --heightOffSetB: 12.5em;
+}
+
+$red: #E81123;
+$orange: #F7630C;
+$yellow: #FFB900;
+$green: #00CC6A;
+$blue: #0078D7;
+$purple: #6B69D6;
+$btnSize: 8em;
+$darkGray: #2c3e50;
+$defaultFont: "Acme", sans-serif;
+$mainTextSize: 3rem;
+$subTextSize: 2rem;
+
+
+// *{ 
+// 	border: 1px solid red;
+// }
+
+// // to remove
+// .panel-container, .panels {
+// 	border: 1px solid green;
+// }
+
+ 
+body {
+	margin: 0 auto;
+	height: 100%;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+	background-color: #e0e0e0;
+	font-family: $defaultFont;	
+	font-style: italic;
+	color: $darkGray;
+}
+
+#level {
+	margin-top: var(--layout-margin);
+	font-size: $mainTextSize;
+}
+
+#turn {
+	margin-bottom: var(--layout-margin);
+	font-size: $subTextSize;
+}
+
+
+.btn-start {
+	font-size: $subTextSize;
+}
+
+.btn-start:hover {
+	opacity: 0.7;
+}
+
+
+
+.panel-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 25rem;
+}
+
+.center-panel,
+.toggle {
+	display: flex;
+	align-items: center;
+}
+
+// .panels {
+// 	width: 20em;
+// 	height: 20em;
+// 	border-radius: var(--panels-radius);
+// 	background-color: black;
+// 	box-sizing: border-box;
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr;
+// 	grid-gap: var(--gap-border);
+// 	padding: var(--gap-border);
+// }
+
+
+.btn-panel {
+	position: absolute;
+	// left: 50%;
+    width: $btnSize;
+    height: $btnSize;
+    border-radius: 50%;
+    outline: none;
+	border: 10px solid rgba(0,0,0,.5);
+	transform: translateX(-50%);
+}
+
+.btn-panel:hover, .active {
+	filter: brightness(180%);
+	border: 10px solid rgba(0,0,0,.7);
+}
+
+.red {
+	left: calc(50% - var(--widthOffsetA));
+    background-color: $red;
+}
+.orange {
+	left: calc(50% + var(--widthOffsetA));
+    background-color: $orange;
+}
+.yellow {
+	left: calc(50% + var(--widthOffsetB));
+	top: var(--heightOffSetB);
+    background-color: $yellow;
+}
+.green {
+	left: calc(50% + var(--widthOffsetA));
+	top: var(--heightOffSetA);
+    background-color: $green;
+}
+.blue {
+	left: calc(50% - var(--widthOffsetA));
+	top: var(--heightOffSetA);
+    background-color: $blue;
+}
+.purple {
+	left: calc(50% - var(--widthOffsetB));
+	top: var(--heightOffSetB);
+    background-color: $purple;
+}
+
+@media only screen and (min-device-width: 768px) {
+	:root {
+		--center-text-offset: 3.5rem;
+		--toggle-width: 6rem;
+		--toggle-height: 3rem;
+		--toggle-padding: .7em;
+		--toggle-margin-top: -1.5rem;
+		--toggle-btn-size: calc((var(--toggle-width) - 1.8rem) / 2);
+		--layout-margin: 2rem;
+
+		--widthOffsetA: 5em;
+		--widthOffsetB: 10em;
+		--heightOffSetA: 21em;
+		--heightOffSetB: 12.5em;
+	}
+}

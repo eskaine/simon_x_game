@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "description": "Simon game with extra features",
   "main": "app.js",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "sass": "^1.26.11"
   },
   "scripts": {
-    "start": "npm run build && node app",
-    "dev": "NODE_ENV=development nodemon parcel app",
-    "build": "parcel build src/index.html"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./"
   },
   "repository": {
     "type": "git",

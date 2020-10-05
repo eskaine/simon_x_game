@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Acme&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.scss">
+  </head>
+  <body>
+    <div id="level" class="displayText">Level: 0</div>
+    <div id="turn" class="displayText">Start Game!!</div>
+    <div class="panel-container">
+      <div class="center-panel">
+        <p>SIMON</p>
+        <div class="toggle">
+          <div id="toggleBtn"></div>
+        </div>
+      </div>
+      <div id="panels" class="panels">
+        <button class="btn-panel red" data-panel="0"></button>
+        <button class="btn-panel orange" data-panel="1"></button>
+        <button class="btn-panel yellow" data-panel="2"></button>
+        <button class="btn-panel green" data-panel="3"></button>
+        <button class="btn-panel blue" data-panel="4"></button>
+        <button class="btn-panel purple" data-panel="5"></button>
+      </div>
+    </div>
+    <button id="startBtn" class="btn-start">Start</button>
+    <script src="scripts.js"></script>
+  </body>
 </html>
