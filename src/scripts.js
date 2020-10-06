@@ -4,7 +4,7 @@ const levelText = document.getElementById("level");
 const turnText = document.getElementById("turn");
 const toggleButton = document.getElementById("toggleBtn");
 const toggle = toggleButton.parentNode;
-const startButton = document.getElementById("startBtn");
+const playButton = document.getElementById("play");
 const panels = document.getElementById("panels");
 const panelsList = panels.children;
 
@@ -39,19 +39,28 @@ var state = {
     ],
     error: "assets/error.wav",
   },
+  runningEvents: {
+    timeouts: [],
+    intervals: []
+  }
 };
 
-//runningLights();
-
-startButton.addEventListener("click", (e) => {
-  // if (!state.isRunning) {
-  //   state.isGameStart = true;
-  //   state.isRunning = true;
-  //   state.isGameover = false;
-  //   resetGame();
-  //   runGame();
-  // }
+window.addEventListener('load', (e) => {
   runningLights();
+});
+
+
+playButton.addEventListener("click", (e) => {
+  if (!state.isRunning) {
+    //console.log(state.lightShow);
+    //clearInterval(state.lightShow);
+    clearEvents();
+    state.isGameStart = true;
+    state.isRunning = true;
+    state.isGameover = false;
+    resetGame();
+    runGame();
+  }
 });
 
 panels.addEventListener("click", (e) => {
@@ -176,21 +185,44 @@ function runningLights() {
     // running light interval flash
     if (round >= 6 && index === panelsList.length) {
       clearInterval(interval);
-      setTimeout(() => {
+      let to1 = setTimeout(() => {
         for (let i = 0; i < panelsList.length; i++) {
           flashPanel(i, 500);
         }
-        setTimeout(() => {
+        let to2 = setTimeout(() => {
           runningLights();
         }, 1000);
+        // storing timeouts 1
+        state.runningEvents.timeouts.push(to2);
       }, 800);
+      // storing timeouts 2
+      state.runningEvents.timeouts.push(to1);
     }
 
+    // setting up for the above interval flash
     if (index >= panelsList.length) {
       index = 0;
       round++;
     }
   }, 100);
+
+  // storing intervals
+  state.runningEvents.intervals.push(interval);
+}
+
+
+// Clear all timeouts and intervals
+function clearEvents() {
+  let timeouts = state.runningEvents.timeouts;
+  let intervals = state.runningEvents.intervals;
+
+  for(let i of intervals) {
+    window.clearInterval(i);
+  }
+
+  for(let t of timeouts) {
+    window.clearTimeout(t);
+  }
 }
 
 /* Helper functions */

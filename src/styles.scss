@@ -68,6 +68,10 @@ body {
 	opacity: 0.7;
 }
 
+#play:hover {
+	opacity: 0.6;
+}
+
 
 
 .panel-container {
@@ -106,6 +110,7 @@ body {
     outline: none;
 	border: 10px solid rgba(0,0,0,.5);
 	transform: translateX(-50%);
+	filter: brightness(80%);
 }
 
 .btn-panel:hover, .active {
@@ -140,6 +145,9 @@ body {
 	left: calc(50% - var(--widthOffsetB));
 	top: var(--heightOffSetB);
     background-color: $purple;
+}
+.fa-play-circle {
+	font-size: 6em;
 }
 
 @media only screen and (min-device-width: 768px) {

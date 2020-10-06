@@ -1,10 +1,8 @@
 # Simon X
 - Simon game with extra features
-- Upgraded from [Simon Game](https://codepen.io/eskaine/pen/QWNoqRM)
+- Upgraded from [Simon Game](https://github.com/eskaine/simon_game)
 
 ## Build with the following:
-- Node.js
-- express
 - Parcel
 - Sass
 - HTML
