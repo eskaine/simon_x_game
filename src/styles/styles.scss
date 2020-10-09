@@ -1,0 +1,127 @@
+$layout-margin: 1rem;
+$red: #e81123;
+$orange: #f7630c;
+$yellow: #ffb900;
+$green: #00cc6a;
+$blue: #0078d7;
+$purple: #6b69d6;
+$btnSize: 8em;
+$darkGray: #2c3e50;
+$defaultFont: "Acme", sans-serif;
+$mainTextSize: 3rem;
+$subTextSize: 2rem;
+
+@mixin panel($color) {
+  @extend %btn-panel;
+  background-color: $color;
+}
+
+@mixin brightness($brightness, $opacity) {
+  border: 10px solid rgba(0, 0, 0, $opacity);
+  filter: brightness($brightness);
+}
+
+body {
+  margin: 0 auto;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #e0e0e0;
+  font-family: $defaultFont;
+  font-style: italic;
+  color: $darkGray;
+}
+
+#level {
+  margin-top: $layout-margin;
+  font-size: $mainTextSize;
+}
+
+#turn {
+  margin-bottom: $layout-margin;
+  font-size: $subTextSize;
+}
+
+#play:hover {
+  opacity: 0.6;
+}
+
+%panels-spread {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.panels-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  .top,
+  .bottom {
+    @extend %panels-spread;
+    gap: 0.8em;
+  }
+  .middle {
+    @extend %panels-spread;
+    gap: 7.2em;
+  }
+}
+
+%flash {
+  @include brightness(180%, 0.7);
+}
+
+%btn-panel {
+  width: $btnSize;
+  height: $btnSize;
+  border-radius: 50%;
+  outline: none;
+  @include brightness(80%, 0.5);
+  &:hover {
+    @extend %flash;
+  }
+}
+
+.active {
+  @extend %flash;
+}
+
+.red {
+  @include panel($red);
+}
+
+.orange {
+  @include panel($orange);
+}
+
+.yellow {
+  @include panel($yellow);
+}
+
+.green {
+  @include panel($green);
+}
+
+.blue {
+  @include panel($blue);
+}
+
+.purple {
+  @include panel($purple);
+}
+
+.fa-play-circle {
+  font-size: 6em;
+}
+
+@media only screen and (min-device-width: 768px) {
+  $layout-margin: 2rem;
+
+  .panels-container {
+    .middle {
+      gap: 7.8em;
+    }
+  }
+}
