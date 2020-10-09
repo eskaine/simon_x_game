@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Simon game with extra features",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "animate": "^1.0.0"
+  },
   "devDependencies": {
     "cssnano": "^4.1.10",
     "sass": "^1.26.11"
