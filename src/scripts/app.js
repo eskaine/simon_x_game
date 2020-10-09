@@ -1,28 +1,31 @@
 import "../styles/styles.scss";
-import * as func from "./scripts.js";
+import func from "./scripts.js";
+import animate from "./animation.js";
 import state from "./data.js";
 
-const anim = require("animate");
+const status = document.querySelector(".status");
 const levelText = document.getElementById("level");
 const turnText = document.getElementById("turn");
 // const toggleButton = document.getElementById("toggleBtn");
 // const toggle = toggleButton.parentNode;
-const playButton = document.getElementById("play");
 const panels = document.querySelector(".panels-container");
-const panelsList = state.panelsID;
-const status = document.querySelector(".status");
 
-window.addEventListener('load', (e) => {
-  func.introScreen();
-  func.runningLights(panelsList);
+window.addEventListener("load", (e) => {
+  animate.introScreen();
+  func.runningLights();
 });
 
-playButton.addEventListener("click", (e) => {
-  if (!state.isRunning) {
-    //console.log(state.lightShow);
-    //clearInterval(state.lightShow);
+document.querySelector(".overlay").addEventListener("click", (e) => {
+  if (e.target.classList.value.includes("overlay")) {
+    // clear running lights
     func.clearEvents();
-    
+    // clear title and start
+    animate.startScreen();
+  }
+});
+
+document.getElementById("play").addEventListener("click", (e) => {
+  if (!state.isRunning) {
     state.isGameStart = true;
     state.isRunning = true;
     state.isGameover = false;
@@ -32,8 +35,8 @@ playButton.addEventListener("click", (e) => {
 });
 
 panels.addEventListener("click", (e) => {
-  console.log("click 2");
   if (!state.isPanelsLock) {
+    console.log(e.target.dataset.panel);
     func.playerInput(e.target.dataset.panel);
   }
 });
@@ -52,4 +55,4 @@ panels.addEventListener("click", (e) => {
 //   }
 // });
 
-export default { document, status, levelText, turnText, panels};
+export default { document, status, levelText, turnText, panels };

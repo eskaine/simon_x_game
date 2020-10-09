@@ -5,29 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="styles/styles.scss" />
-    <link rel="stylesheet" href="styles/animate.min.css">
-    
+    <link rel="stylesheet" href="styles/animate.min.css" />
+
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <div class="brand-overlay animate__animated animate__slow animate__fadeIn">
       <div class="brand animate__animated">
-        <img src="assets/magatama.png" alt="">
-      <h1>eskaine</h1>
+        <img src="assets/magatama.png" alt="" />
+        <h1>eskaine</h1>
       </div>
     </div>
     <div class="underlay animate__animated"></div>
     <div class="overlay">
-      <h1 class="logo animate__animated">Simon X</h1>
-      <h3 class="animate__animated animate__infinite animate__slow animate__flash">Click to Play!</h3>
+      <h1 class="title animate__animated">Simon X</h1>
+      <h3 class="play-click animate__animated animate__infinite animate__slow animate__flash">
+        Click to Play!
+      </h3>
     </div>
     <div class="container">
-      <div class="status animate__animated">
-        <div id="level" class="displayText">Level: 0</div>
+      <div class="status animate__animated animate__faster">
+        <div id="level" class="displayText">Level: 1</div>
         <div id="turn" class="displayText">Start Game!!</div>
       </div>
-      <div class="panels-container animate__animated">
+      <div class="panels-container">
         <div class="top">
           <button id="p1" class="btn-panel red" data-panel="0"></button>
           <button id="p2" class="btn-panel orange" data-panel="1"></button>
@@ -41,8 +43,8 @@
           <button id="p4" class="btn-panel green" data-panel="3"></button>
         </div>
       </div>
-      <div id="toggleBtn"></div>
-      <div id="play"><i class="far fa-play-circle"></i></div>
+      <!-- <div id="toggleBtn"></div> -->
+      <div id="play" class="animate__animated animate__faster"><i class="far fa-play-circle"></i></div>
     </div>
     <script src="scripts/app.js"></script>
   </body>

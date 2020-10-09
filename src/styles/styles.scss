@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Acme&family=Alegreya+Sans+SC:ital,wght@1,700&family=Ubuntu:ital,wght@1,700&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
 
 $red: #e81123;
 $orange: #f7630c;
@@ -17,8 +18,24 @@ $subTextSize: 2rem;
   height: 100vh;
   width: 100vw;
   z-index: $zIndex;
-  user-select: none;
   background-color: $rgba;
+}
+
+@mixin brightness($brightness, $opacity) {
+  border: 10px solid rgba(0, 0, 0, $opacity);
+  -webkit-filter: brightness($brightness);
+          filter: brightness($brightness);
+}
+
+%btn-panel {
+  width: $btnSize;
+  height: $btnSize;
+  border-radius: 50%;
+  outline: none;
+  @include brightness(80%, 0.5);
+  &:hover {
+    @extend %flash;
+  }
 }
 
 @mixin panel($color) {
@@ -26,9 +43,15 @@ $subTextSize: 2rem;
   background-color: $color;
 }
 
-@mixin brightness($brightness, $opacity) {
-  border: 10px solid rgba(0, 0, 0, $opacity);
-  filter: brightness($brightness);
+%panels-spread {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+%flex {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -36,17 +59,21 @@ body {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   text-align: center;
   background-color: #e0e0e0;
   font-family: $defaultFont;
   font-style: italic;
   color: $darkGray;
+  overflow: hidden;
 }
 
 .brand-overlay {
+  @extend %flex;
   @include overlay(5, rgba(33, 33, 33, 1));
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   .brand {
@@ -55,7 +82,9 @@ body {
       margin-top: -5em;
       width: 40%;
       height: auto;
-      filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
+      -webkit-filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
+        brightness(103%) contrast(100%);
+              filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
         brightness(103%) contrast(100%);
     }
     h1 {
@@ -67,7 +96,6 @@ body {
       color: white;
     }
   }
-  
 }
 
 .underlay {
@@ -75,60 +103,54 @@ body {
 }
 
 .overlay {
+  @extend %flex;
   @include overlay(3, rgba(0, 0, 0, 0));
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  
-  .logo {
+
+  .title {
     margin-top: 0.8em;
-    font-size: 4em;
+    font-size: 3.5em;
     font-family: "Ubuntu", sans-serif;
   }
   h3 {
-    margin-bottom: 4em;
+    margin-bottom: 3.5em;
     font-size: 2em;
   }
 }
 
 .container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  @extend %flex;
+  border: 1px solid black;
 }
 
 .status {
-  margin-top: 2em;
-  margin-bottom: 3em;
-  visibility: hidden;
-}
-
-#level {
-  font-size: $mainTextSize;
-}
-
-#turn {
-  font-size: $subTextSize;
+  margin-top: 1.5em;
+  margin-bottom: 2.5em;
+  transform: translateY(-500%);
+  #level {
+    font-size: $mainTextSize;
+  }
+  #turn {
+    font-size: $subTextSize;
+  }
 }
 
 #play {
-  margin-top: 3em;
-}
-
-#play:hover {
-  opacity: 0.6;
-}
-
-%panels-spread {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  margin-top: 2em;
+  transform: translateY(300%);
+  width: fit-content;
+  align-self: center;
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .panels-container {
+  @extend %flex;
   position: relative;
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   .top,
   .bottom {
@@ -138,17 +160,6 @@ body {
   .middle {
     @extend %panels-spread;
     gap: 7.2em;
-  }
-}
-
-%btn-panel {
-  width: $btnSize;
-  height: $btnSize;
-  border-radius: 50%;
-  outline: none;
-  @include brightness(80%, 0.5);
-  &:hover {
-    @extend %flash;
   }
 }
 
@@ -182,10 +193,26 @@ body {
 }
 
 .fa-play-circle {
-  font-size: 6em;
+  font-size: 5em;
 }
 
 .animate__animated.animate__fadeIn {
+  transform: translateY(0);
+}
+
+.animate__animated.animate__backOutUp {
+  transform: translateY(-250%);
+}
+
+.animate__animated.animate__backOutDown {
+  transform: translateY(500%);
+}
+
+.animate__animated.animate__slideInDown {
+  transform: translateY(0);
+}
+
+.animate__animated.animate__slideInUp {
   transform: translateY(0);
 }
 
