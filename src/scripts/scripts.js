@@ -1,8 +1,7 @@
-export { runGame, resetGame, clearEvents, playerInput, runningLights };
+export { introScreen, runGame, resetGame, clearEvents, playerInput, runningLights };
 import state from "./data.js";
 import DOM from "./app.js";
 
-console.log(DOM);
 
 function runGame() {
   if(state.level === 0) {
@@ -63,10 +62,9 @@ function genSequence() {
   changeStatus(DOM.turnText, state.params.turnStatus.wait);
   let n = state.level;
   state.isRunning = true;
-  console.log("elve", n);
   // generate panel state.sequences
   let interval = setInterval(() => {
-    let index = Math.round(Math.random() * (DOM.panelsList.length - 1));
+    let index = Math.round(Math.random() * (state.panelsID.length - 1));
     playAudio(state.audio.clips[index]);
     state.sequences.push(index);
     flashPanel(DOM.document.getElementById(state.panelsID[index]));
@@ -106,28 +104,31 @@ function runningLights() {
   let index = 0;
   let round = 0;
   let interval = setInterval(() => {
-    flashPanel(DOM.document.getElementById(DOM.panelsList[index]));
+    flashPanel(DOM.document.getElementById(state.panelsID[index]));
     index++;
 
     // running light interval flash
-    if (round >= 6 && index === panelsList.length) {
-      clearInterval(interval);
+    if (round >= 6 && index === state.panelsID.length) {
+      //clearInterval(interval);
+      clearEvents();
       let timeout1 = setTimeout(() => {
-        for (let i = 0; i < panelsList.length; i++) {
-          flashPanel(DOM.document.getElementById(DOM.panelsList[i]), 500);
+        for (let i = 0; i < state.panelsID.length; i++) {
+          flashPanel(DOM.document.getElementById(state.panelsID[i]), 400);
+          //DOM.document.getElementById(state.panelsID[i]).classList.toggle("active");
         }
+
         let timeout2 = setTimeout(() => {
           runningLights();
         }, 1000);
         // storing timeouts 1
         state.runningEvents.timeouts.push(timeout2);
-      }, 800);
+      }, 1100);
       // storing timeouts 2
       state.runningEvents.timeouts.push(timeout1);
     }
 
     // setting up for the above interval flash
-    if (index >= DOM.panelsList.length) {
+    if (index >= state.panelsID.length) {
       index = 0;
       round++;
     }
@@ -151,6 +152,29 @@ function clearEvents() {
   }
 }
 
+// Intro screen before actual game
+function introScreen() {
+  let brandOverlay = DOM.document.querySelector('.brand-overlay');
+  let underlay = DOM.document.querySelector('.underlay');
+  let brand = DOM.document.querySelector('.brand');
+
+  timeOut("animate__fadeInDown", 1500, brand, () => {
+    brandOverlay.classList.remove("animate__fadeIn");
+  });
+  
+  timeOut("animate__fadeOut", 3500, brandOverlay, () => {
+    timeOut(null, 2000, null, () => {
+      brandOverlay.style.display = "none";
+    });
+  });
+
+  timeOut("animate__fadeOut", 6000, underlay, () => {
+    timeOut(null, 2000, null, () => {
+      underlay.style.display = "none";
+    });
+  });
+}
+
 /* Helper functions */
 function prepPlayer() {
   setTimeout(() => {
@@ -161,22 +185,10 @@ function prepPlayer() {
 }
 
 function flashPanel(element, flashTime = state.params.flashTime) {
-  // element.style.filter = "brightness(180%)";
-  // element.style.border = "10px solid rgba(0, 0, 0, 0.7)";
-  console.log(element);
-  element.classList.toggle("active");
+  element.classList.add("active");
   setTimeout(() => {
-    // element.style.filter = "brightness(80%)";
-    // element.style.border = "10px solid rgba(0, 0, 0, 0.5)";
-    element.classList.toggle("active");
+    element.classList.remove("active");
   }, flashTime);
-}
-
-function triggerAnimation(animClass) {
-  DOM.status.classList.toggle(animClass);
-  setTimeout(() => {
-    DOM.status.classList.toggle(animClass);
-  }, 2000);
 }
 
 function changeStatus(element, status) {
@@ -186,4 +198,16 @@ function changeStatus(element, status) {
 
 function playAudio(clips) {
   new Audio(clips).play();
+}
+
+function timeOut(className, timing, element = null,  callback = null) {
+  setTimeout(() => {
+    if(callback) {
+      callback();
+    }
+
+    if(element) {
+      element.classList.toggle(className);
+    }
+  }, timing);
 }

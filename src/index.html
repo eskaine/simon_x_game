@@ -4,14 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Acme&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="styles/styles.scss" />
     <link rel="stylesheet" href="styles/animate.min.css">
     
@@ -19,23 +11,34 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body>
+    <div class="brand-overlay animate__animated animate__slow animate__fadeIn">
+      <div class="brand animate__animated">
+        <img src="assets/magatama.png" alt="">
+      <h1>eskaine</h1>
+      </div>
+    </div>
+    <div class="underlay animate__animated"></div>
+    <div class="overlay">
+      <h1 class="logo animate__animated">Simon X</h1>
+      <h3 class="animate__animated animate__infinite animate__slow animate__flash">Click to Play!</h3>
+    </div>
     <div class="container">
       <div class="status animate__animated">
         <div id="level" class="displayText">Level: 0</div>
         <div id="turn" class="displayText">Start Game!!</div>
       </div>
-      <div class="panels-container">
+      <div class="panels-container animate__animated">
         <div class="top">
           <button id="p1" class="btn-panel red" data-panel="0"></button>
           <button id="p2" class="btn-panel orange" data-panel="1"></button>
         </div>
         <div class="middle">
+          <button id="p6" class="btn-panel purple" data-panel="5"></button>
           <button id="p3" class="btn-panel yellow" data-panel="2"></button>
-          <button id="p4" class="btn-panel green" data-panel="3"></button>
         </div>
         <div class="bottom">
           <button id="p5" class="btn-panel blue" data-panel="4"></button>
-          <button id="p6" class="btn-panel purple" data-panel="5"></button>
+          <button id="p4" class="btn-panel green" data-panel="3"></button>
         </div>
       </div>
       <div id="toggleBtn"></div>

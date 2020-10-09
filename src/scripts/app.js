@@ -13,15 +13,15 @@ const panelsList = state.panelsID;
 const status = document.querySelector(".status");
 
 window.addEventListener('load', (e) => {
+  func.introScreen();
   func.runningLights(panelsList);
 });
 
-console.log(anim);
 playButton.addEventListener("click", (e) => {
   if (!state.isRunning) {
     //console.log(state.lightShow);
     //clearInterval(state.lightShow);
-    // func.clearEvents();
+    func.clearEvents();
     
     state.isGameStart = true;
     state.isRunning = true;
@@ -52,4 +52,4 @@ panels.addEventListener("click", (e) => {
 //   }
 // });
 
-export default { document, status, levelText, turnText, panelsList};
+export default { document, status, levelText, turnText, panels};
