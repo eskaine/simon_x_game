@@ -35,8 +35,7 @@ document.getElementById("play").addEventListener("click", (e) => {
 });
 
 panels.addEventListener("click", (e) => {
-  if (!state.isPanelsLock) {
-    console.log(e.target.dataset.panel);
+  if (!state.isPanelsLock && state.inputs.length < state.sequences.length) {
     func.playerInput(e.target.dataset.panel);
   }
 });

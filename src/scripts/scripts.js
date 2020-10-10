@@ -1,9 +1,9 @@
 import state from "./data.js";
 import DOM from "./app.js";
+import animation from "./animation.js";
 
 export default (() => {
   function runGame() {
-    DOM.levelText.innerText = `Level: ${state.level}`;
     genSequence();
   }
 
@@ -52,7 +52,10 @@ export default (() => {
       // continue game if all input is correct
       if (i == state.sequences.length - 1) {
         nextLevel();
-        setTimeout(() => runGame(), 500);
+        animation.changeLevel(() => {
+          DOM.levelText.innerText = `Level: ${state.level}`;
+        });
+        setTimeout(() => runGame(), 1500);
       }
     }
   }

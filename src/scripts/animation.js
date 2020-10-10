@@ -36,12 +36,26 @@ export default (() => {
 
     DOM.document.querySelector(".title").classList.add("animate__backOutUp");
     playClick.classList.add("animate__backOutDown");
-    timeOut(null, 1000, null, () => {
+    timeOut(null, 500, null, () => {
       DOM.document.querySelector(".overlay").style.display = "none";
       DOM.document
         .querySelector(".status")
         .classList.add("animate__slideInDown");
       DOM.document.getElementById("play").classList.add("animate__slideInUp");
+    });
+  }
+
+  function changeLevel(changeLevelTextCallback) {
+    let status = DOM.document.querySelector(".status");
+    status.classList.remove("animate__slideInDown", "animate__fadeInDown");
+
+    timeOut(null, 0, null, () => {
+      status.classList.add("animate__fadeOutUp");
+      setTimeout(() => {
+        changeLevelTextCallback();
+        status.classList.remove("animate__fadeOutUp");
+        status.classList.add("animate__fadeInDown");
+      }, 500);
     });
   }
 
@@ -59,6 +73,7 @@ export default (() => {
 
   return {
     introScreen: introScreen,
-    startScreen: startScreen
+    startScreen: startScreen,
+    changeLevel: changeLevel,
   };
 })();
