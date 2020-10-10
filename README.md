@@ -5,5 +5,6 @@
 ## Build with the following:
 - Parcel
 - Animate.css
-- Sass
+- Javascript
+- Sass (scss)
 - HTML

@@ -10,8 +10,6 @@ $purple: #6b69d6;
 $btnSize: 8em;
 $darkGray: #2c3e50;
 $defaultFont: "Acme", sans-serif;
-$mainTextSize: 3rem;
-$subTextSize: 2rem;
 
 @mixin overlay($zIndex, $rgba) {
   position: absolute;
@@ -24,7 +22,7 @@ $subTextSize: 2rem;
 @mixin brightness($brightness, $opacity) {
   border: 10px solid rgba(0, 0, 0, $opacity);
   -webkit-filter: brightness($brightness);
-          filter: brightness($brightness);
+  filter: brightness($brightness);
 }
 
 %btn-panel {
@@ -49,7 +47,6 @@ $subTextSize: 2rem;
 }
 
 %flex {
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -60,9 +57,9 @@ body {
   padding: 0;
   box-sizing: border-box;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   text-align: center;
   background-color: #e0e0e0;
   font-family: $defaultFont;
@@ -84,7 +81,7 @@ body {
       height: auto;
       -webkit-filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
         brightness(103%) contrast(100%);
-              filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
+      filter: invert(95%) sepia(94%) saturate(2%) hue-rotate(68deg)
         brightness(103%) contrast(100%);
     }
     h1 {
@@ -105,61 +102,58 @@ body {
 .overlay {
   @extend %flex;
   @include overlay(3, rgba(0, 0, 0, 0));
-  justify-content: space-between;
 
   .title {
-    margin-top: 0.8em;
     font-size: 3.5em;
     font-family: "Ubuntu", sans-serif;
   }
   h3 {
-    margin-bottom: 3.5em;
+    margin-top: 11.5em;
     font-size: 2em;
   }
 }
 
 .container {
   @extend %flex;
-  border: 1px solid black;
-}
-
-.status {
-  margin-top: 1.5em;
-  margin-bottom: 2.5em;
-  transform: translateY(-500%);
-  #level {
-    font-size: $mainTextSize;
+  height: 100vh;
+  .status {
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+    transform: translateY(-200%);
+    #level {
+      font-size: 3rem;
+    }
+    #turn {
+      font-size: 2rem;
+    }
   }
-  #turn {
-    font-size: $subTextSize;
+  .panels-container {
+    @extend %flex;
+    position: relative;
+    align-items: center;
+    .top,
+    .bottom {
+      @extend %panels-spread;
+      gap: 0.8em;
+    }
+    .middle {
+      @extend %panels-spread;
+      gap: 7.2em;
+    }
   }
-}
-
-#play {
-  margin-top: 2em;
-  transform: translateY(300%);
-  width: fit-content;
-  align-self: center;
-  &:hover {
-    opacity: 0.6;
-  }
-}
-
-.panels-container {
-  @extend %flex;
-  position: relative;
-  align-items: center;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  .top,
-  .bottom {
-    @extend %panels-spread;
-    gap: 0.8em;
-  }
-  .middle {
-    @extend %panels-spread;
-    gap: 7.2em;
+  #play {
+    margin-top: 2em;
+    transform: translateY(400%);
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    align-self: center;
+    &:hover {
+      opacity: 0.6;
+    }
+    .fa-play-circle {
+      font-size: 5em;
+    }
   }
 }
 
@@ -192,10 +186,6 @@ body {
   @include brightness(180%, 0.7);
 }
 
-.fa-play-circle {
-  font-size: 5em;
-}
-
 .animate__animated.animate__fadeIn {
   transform: translateY(0);
 }
@@ -217,20 +207,72 @@ body {
 }
 
 @media only screen and (min-device-width: 768px) {
+  $btnSize: 9em;
+
+  @mixin brightness($brightness, $opacity) {
+    border: 12px solid rgba(0, 0, 0, $opacity);
+  }
+
+  %flash,
+  .active {
+    @include brightness(180%, 0.7);
+  }
+
+  %btn-panel {
+    width: $btnSize;
+    height: $btnSize;
+    @include brightness(80%, 0.5);
+    &:hover {
+      @extend %flash;
+    }
+  }
+
   .brand-overlay {
     .brand {
       img {
-        width: 10%;
+        width: 12%;
       }
       h1 {
-        font-size: 5em;
+        font-size: 6em;
       }
     }
   }
 
-  .panels-container {
-    .middle {
-      gap: 7.8em;
+  .overlay {
+    .title {
+      font-size: 6em;
+    }
+    h3 {
+      margin-top: 10em;
+      font-size: 3em;
+    }
+  }
+
+  .container {
+    .status {
+      margin-top: 2.5em;
+      margin-bottom: 3.5em;
+      #level {
+        font-size: 4rem;
+      }
+      #turn {
+        font-size: 3rem;
+      }
+    }
+    .panels-container {
+      .top,
+      .bottom {
+        gap: 1.2em;
+      }
+      .middle {
+        gap: 9.5em;
+      }
+    }
+    #play {
+      margin-top: 3.5em;
+      .fa-play-circle {
+        font-size: 7em;
+      }
     }
   }
 }
