@@ -54,6 +54,7 @@ export default (() => {
         nextLevel();
         animation.changeLevel(() => {
           DOM.levelText.innerText = `Level: ${state.level}`;
+          DOM.turnText.innerText = `Next...`;
         });
         setTimeout(() => runGame(), 1500);
       }
@@ -117,7 +118,6 @@ export default (() => {
         let timeout1 = setTimeout(() => {
           for (let i = 0; i < state.panelsID.length; i++) {
             flashPanel(DOM.document.getElementById(state.panelsID[i]), 400);
-            //DOM.document.getElementById(state.panelsID[i]).classList.toggle("active");
           }
 
           let timeout2 = setTimeout(() => {
@@ -177,7 +177,9 @@ export default (() => {
   }
 
   function playAudio(clips) {
-    new Audio(clips).play();
+    if(state.isAudioOn) {
+      new Audio(clips).play();
+    }
   }
 
   return {

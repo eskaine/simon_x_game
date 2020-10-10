@@ -18,6 +18,7 @@ export default (() => {
     });
 
     timeOut("animate__fadeOut", 6000, underlay, () => {
+      toggleSettings(false);
       timeOut(null, 2000, null, () => {
         underlay.style.display = "none";
       });
@@ -71,9 +72,31 @@ export default (() => {
     }, timing);
   }
 
+  function toggleSettings(toHide) {
+    let settingsBtn = document.getElementById("settings");
+    settingsBtn.classList.remove("animate__fadeIn", "animate__fadeOut");
+    if(toHide) {
+      settingsBtn.classList.add("animate__fadeOut");
+    } else {
+      settingsBtn.classList.add("animate__fadeIn");
+    }
+  }
+
+  function toggleModal(toHide) {
+    let settingsBtn = document.querySelector(".settings-modal");
+    settingsBtn.classList.remove("animate__slideInDown", "animate__slideOutUp");
+    if(toHide) {
+      settingsBtn.classList.add("animate__slideOutUp");
+    } else {
+      settingsBtn.classList.add("animate__slideInDown");
+    }
+  }
+
   return {
     introScreen: introScreen,
     startScreen: startScreen,
     changeLevel: changeLevel,
+    toggleSettings: toggleSettings,
+    toggleModal, toggleModal
   };
 })();

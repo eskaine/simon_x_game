@@ -113,8 +113,50 @@ body {
   }
 }
 
+.settings-overlay {
+  @include overlay(4, rgba(0, 0, 0, 0));
+  display: none;
+  .settings-modal {
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transform: translateY(-100%);
+    color: white;
+    .volume {
+      position: relative;
+      .volume-up,
+      .volume-down {
+        position: absolute;
+        right: 20px;
+        top: 14px;
+        i {
+          font-size: 2.7em;
+        }
+      }
+      .volume-down {
+        display: none;
+      }
+    }
+  }
+}
+
+#settings {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 4;
+  opacity: 0;
+  .cog {
+    color: rgba(0, 0, 0, 0);
+    font-size: 2em;
+    -webkit-text-stroke: 2px #bdc3c7;
+  }
+}
+
 .container {
   @extend %flex;
+  position: relative;
   height: 100vh;
   .status {
     margin-top: 1.5em;
@@ -157,6 +199,10 @@ body {
   }
 }
 
+.volume {
+  position: relative;
+}
+
 .red {
   @include panel($red);
 }
@@ -186,6 +232,25 @@ body {
   @include brightness(180%, 0.7);
 }
 
+// animation
+#settings.animate__animated.animate__faster {
+  animation-duration: 0.1s;
+  &.animate__fadeIn {
+    opacity: 1;
+  }
+  &.animate__fadeIn {
+    opacity: 0;
+  }
+}
+
+.settings-modal.animate__animated.animate__slideInDown {
+  transform: translateY(0);
+}
+
+.settings-modal.animate__animated.animate__slideOutUp {
+  transform: translateY(-100%);
+}
+
 .animate__animated.animate__fadeIn {
   transform: translateY(0);
 }
@@ -213,7 +278,6 @@ body {
 .animate__animated.animate__fadeInDown {
   transform: translateY(-300%);
 }
-
 
 @media only screen and (min-device-width: 768px) {
   $btnSize: 9em;
@@ -286,9 +350,7 @@ body {
   }
 }
 
-
 @media only screen and (min-device-width: 1024px) {
-
   .brand-overlay {
     .brand {
       img {
