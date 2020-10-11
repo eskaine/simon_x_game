@@ -1,15 +1,13 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-
 # Simon X
 - Simon game with extra features
 - Upgraded from [Simon Game](https://github.com/eskaine/simon_game)
 
 ## Game Features
 
-- <i class="fas fa-angle-double-up"></i> - Max Speed
-- <i class="fas fa-angle-up toggleOff"></i> - Gradual Speedup
-- <i class="fas fa-redo"></i> - Strict Mode / Retry
-- <i class="fas fa-volume-up"></i> - Volume
+- <img src="fonts/angle-double-up-solid.svg" width="10"> Max Speed
+- <img src="fonts/angle-up-solid.svg" width="10"> Gradual Speedup
+- <img src="fonts/redo-solid.svg" width="10"> Strict Mode / Retry
+- <img src="fonts/volume-up-solid.svg" width="10"> Volume
 
 ## Build with the following:
 - Parcel
