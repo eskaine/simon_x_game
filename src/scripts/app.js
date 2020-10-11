@@ -2,19 +2,15 @@ import "../styles/styles.scss";
 import func from "./scripts.js";
 import animate from "./animation.js";
 import state from "./data.js";
-import data from "./data.js";
 
-const status = document.querySelector(".status");
 const levelText = document.getElementById("level");
 const turnText = document.getElementById("turn");
-// const toggleButton = document.getElementById("toggleBtn");
-// const toggle = toggleButton.parentNode;
-const settingsModal = document.querySelector(".settings-overlay");
+const playButton = document.getElementById("play");
+const settingsOverlay = document.querySelector(".settings-overlay");
 
 // Autorun Game Intro
 window.addEventListener("load", (e) => {
   animate.introScreen();
-  func.runningLights();
 });
 
 // Clear Home Screen
@@ -26,12 +22,15 @@ document.querySelector(".overlay").addEventListener("click", (e) => {
 });
 
 // Start Game
-document.getElementById("play").addEventListener("click", (e) => {
+playButton.addEventListener("click", (e) => {
+  if (state.isGameover) {
+    func.resetGame();
+  }
+
   if (!state.isRunning) {
     state.isGameStart = true;
     state.isRunning = true;
-    state.isGameover = false;
-    func.resetGame();
+    func.resetState();
     func.runGame();
   }
 });
@@ -41,54 +40,48 @@ document.querySelector(".panels-container").addEventListener("click", (e) => {
   if (!state.isPanelsLock && state.inputs.length < state.sequences.length) {
     func.playerInput(e.target.dataset.panel);
   }
-})
+});
 
-// Sound Toggle
-document.querySelector(".volume").addEventListener("click", e => {
-  let element = e.target.parentNode;
-  if(element.classList.value.includes("up")) {
-    element.style.display = "none";
-    document.querySelector(".volume-down").style.display = "block";
-    data.isAudioOn = false;
+// Settings Toggle
+document.querySelector(".settings-modal").addEventListener("click", (e) => {
+  if (e.target.tagName === "I") {
+    e.target.classList.toggle("toggleOff");
   }
-  if(element.classList.value.includes("down")) {
-    element.style.display = "none";
-    document.querySelector(".volume-up").style.display = "block";
-    data.isAudioOn = true;
+
+  if (e.target.parentNode.id === "volume") {
+    state.isAudioOn = state.isAudioOn ? false : true;
+  }
+
+  if (e.target.parentNode.id === "redo") {
+    state.isStrictOff = state.isStrictOff ? false : true;
+  }
+
+  if (e.target.parentNode.id === "speed") {
+    state.isSpeedUp = state.isSpeedUp ? false : true;
+  }
+
+  if (e.target.parentNode.id === "max-speed") {
+    state.isMaxSpeed = state.isMaxSpeed ? false : true;
   }
 });
 
 // Display Modal
-document.getElementById("settings").addEventListener("click", e => {
+document.getElementById("settings").addEventListener("click", (e) => {
   animate.toggleSettings(true);
-  settingsModal.style.display = "block";
+  settingsOverlay.style.display = "block";
   animate.toggleModal(false);
 });
 
 // Hide Modal
-settingsModal.addEventListener("click", e => {
-  if(e.target.classList.value.includes("settings-overlay")) {
+settingsOverlay.addEventListener("click", (e) => {
+  if (e.target.classList.value.includes("settings-overlay")) {
     animate.toggleModal(true);
-    
+
     setTimeout(() => {
-      settingsModal.style.display = "none";
+      settingsOverlay.style.display = "none";
       animate.toggleSettings(false);
     }, 800);
   }
 });
 
-// toggle.addEventListener("click", (e) => {
-//   if (!state.isRunning) {
-//     if (toggle.style.justifyContent === "flex-start") {
-//       toggle.style.justifyContent = "flex-end";
-//       toggleButton.style.backgroundColor = state.params.toggleColors.on;
-//       state.isStrictOn = true;
-//     } else {
-//       toggle.style.justifyContent = "flex-start";
-//       toggleButton.style.backgroundColor = state.params.toggleColors.off;
-//       state.isStrictOn = false;
-//     }
-//   }
-// });
-
-export default { document, status, levelText, turnText };
+export default { document, levelText, turnText, playButton };

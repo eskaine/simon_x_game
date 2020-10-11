@@ -4,7 +4,7 @@ import animation from "./animation.js";
 
 export default (() => {
   function runGame() {
-    genSequence();
+    sequencing(true);
   }
 
   function nextLevel() {
@@ -15,10 +15,19 @@ export default (() => {
 
   function resetGame() {
     state.level = 1;
-    state.sequences = [];
-    state.inputs = [];
+    state.speed = 1200;
+    state.isGameover = false;
+    animation.changeLevel(() => {
+      DOM.levelText.innerText = `Level: ${state.level}`;
+    });
   }
 
+  function resetState() {
+    state.inputs = [];
+    state.sequences = [];
+  }
+
+  // Track player input
   function playerInput(panel) {
     let index = Number(panel);
     playAudio(state.audio.clips[index]);
@@ -40,10 +49,11 @@ export default (() => {
         playAudio(state.audio.error);
 
         // retry if strict is off else game over
-        if (!state.isStrictOn) {
+        if (state.isStrictOff) {
           changeStatus(DOM.turnText, state.params.turnStatus.retry);
-          setTimeout(() => repeatSeq(), 2000);
+          setTimeout(() => sequencing(false), 2000);
         } else {
+          state.isGameover = true;
           changeStatus(DOM.turnText, state.params.turnStatus.stop);
         }
         break;
@@ -61,84 +71,76 @@ export default (() => {
     }
   }
 
-  // Generate memory sequences
-  function genSequence() {
+  // Generate new sequence or replay existing seqeunce
+  function sequencing(isNew) {
+    setSpeed(isNew);
+    togglePlayButton(true);
     changeStatus(DOM.turnText, state.params.turnStatus.wait);
-    let n = state.level;
     state.isRunning = true;
-    // generate panel state.sequences
-    let interval = setInterval(() => {
-      let index = Math.round(Math.random() * (state.panelsID.length - 1));
-      playAudio(state.audio.clips[index]);
-      state.sequences.push(index);
-      flashPanel(DOM.document.getElementById(state.panelsID[index]));
-      n--;
+    let n;
 
-      // setup player's turn
-      if (n === 0) {
-        clearInterval(interval);
-        prepPlayer(DOM.turnText);
+    if (isNew) {
+      n = state.level;
+    } else {
+      state.inputs = [];
+      n = 0;
+    }
+
+    let interval = setInterval(() => {
+      let index;
+
+      // generate new sequence
+      if (isNew) {
+        index = Math.round(Math.random() * (state.panelsID.length - 1));
+        state.sequences.push(index);
+        n--;
+        // set to existing sequence
+      } else {
+        index = state.sequences[n];
+        n++;
       }
-    }, 1600);
-  }
 
-  // Retry
-  function repeatSeq() {
-    changeStatus(DOM.turnText, state.params.turnStatus.wait);
-    state.inputs = [];
-    state.isRunning = true;
-    let n = 0;
-
-    // run through panel state.sequences
-    let interval = setInterval(() => {
-      let index = state.sequences[n];
+      // display sequence
+      let flashSpeed =
+        state.speed < state.params.flashTime
+          ? state.speed
+          : state.params.flashTime;
       playAudio(state.audio.clips[index]);
-      flashPanel(DOM.document.getElementById(state.panelsID[index]));
-      n++;
+      flashPanel(
+        DOM.document.getElementById(state.panelsID[index]),
+        flashSpeed
+      );
 
-      // setup player's turn
-      if (n === state.sequences.length) {
+      // pass control to player when sequencing end
+      if (n === (isNew ? 0 : state.sequences.length)) {
         clearInterval(interval);
         prepPlayer();
+        setTimeout(() => {
+          togglePlayButton(false);
+        }, 800);
       }
-    }, 1600);
+    }, state.speed);
   }
 
-  function runningLights() {
-    let index = 0;
-    let round = 0;
-    let interval = setInterval(() => {
-      flashPanel(DOM.document.getElementById(state.panelsID[index]));
-      index++;
+  /* Helper functions */
 
-      // running light interval flash
-      if (round >= 6 && index === state.panelsID.length) {
-        //clearInterval(interval);
-        clearEvents();
-        let timeout1 = setTimeout(() => {
-          for (let i = 0; i < state.panelsID.length; i++) {
-            flashPanel(DOM.document.getElementById(state.panelsID[i]), 400);
-          }
+  // Set panel flash speed
+  function setSpeed(isNotRepeat) {
+    // speed up
+    if (
+      !state.isMaxSpeed &&
+      state.isSpeedUp &&
+      isNotRepeat &&
+      state.level > 1 &&
+      state.speed > 200
+    ) {
+      state.speed -= 50;
+    }
 
-          let timeout2 = setTimeout(() => {
-            runningLights();
-          }, 1000);
-          // storing timeouts 1
-          state.runningEvents.timeouts.push(timeout2);
-        }, 1100);
-        // storing timeouts 2
-        state.runningEvents.timeouts.push(timeout1);
-      }
-
-      // setting up for the above interval flash
-      if (index >= state.panelsID.length) {
-        index = 0;
-        round++;
-      }
-    }, 100);
-
-    // storing intervals
-    state.runningEvents.intervals.push(interval);
+    // set max speed
+    if (state.isMaxSpeed) {
+      state.speed = 200;
+    }
   }
 
   // Clear all timeouts and intervals
@@ -155,7 +157,7 @@ export default (() => {
     }
   }
 
-  /* Helper functions */
+  // Setup player turn
   function prepPlayer() {
     setTimeout(() => {
       state.isRunning = false;
@@ -164,6 +166,7 @@ export default (() => {
     }, 1200);
   }
 
+  // Panel flash
   function flashPanel(element, flashTime = state.params.flashTime) {
     element.classList.add("active");
     setTimeout(() => {
@@ -171,22 +174,32 @@ export default (() => {
     }, flashTime);
   }
 
+  // Change status text
   function changeStatus(element, status) {
     element.style.color = status.color;
     element.innerHTML = status.text;
   }
 
   function playAudio(clips) {
-    if(state.isAudioOn) {
+    if (state.isAudioOn) {
       new Audio(clips).play();
+    }
+  }
+
+  function togglePlayButton(toDisable) {
+    if (toDisable) {
+      DOM.playButton.classList.add("toggleOff");
+    } else {
+      DOM.playButton.classList.remove("toggleOff");
     }
   }
 
   return {
     runGame: runGame,
     resetGame: resetGame,
+    resetState: resetState,
     clearEvents: clearEvents,
     playerInput: playerInput,
-    runningLights: runningLights,
+    flashPanel: flashPanel
   };
 })();

@@ -1,9 +1,12 @@
 // Game Data
 export default {
   level: 1,
+  speed: 1200,
   isGameStart: false,
-  isStrictOn: false,
-  isGameover: true,
+  isMaxSpeed: false,
+  isSpeedUp: false,
+  isStrictOff: true,
+  isGameover: false,
   isRunning: false,
   isPanelsLock: true,
   isAudioOn: true,
@@ -11,7 +14,7 @@ export default {
   inputs: [],
   panelsID: ["p1", "p2", "p3", "p4", "p5", "p6"],
   params: {
-    flashTime: 800,
+    flashTime: 600,
     toggleColors: { on: "#2E7D32", off: "#c62828" },
     turnStatus: {
       go: { color: "#2ecc71", text: "Your Turn" },

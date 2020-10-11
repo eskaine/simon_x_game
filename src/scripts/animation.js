@@ -1,3 +1,5 @@
+import state from "./data.js";
+import func from "./scripts.js";
 import DOM from "./app.js";
 
 export default (() => {
@@ -18,6 +20,7 @@ export default (() => {
     });
 
     timeOut("animate__fadeOut", 6000, underlay, () => {
+      runningLights();
       toggleSettings(false);
       timeOut(null, 2000, null, () => {
         underlay.style.display = "none";
@@ -25,6 +28,7 @@ export default (() => {
     });
   }
 
+  // Title/Start screen
   function startScreen() {
     let playClick = DOM.document.querySelector(".play-click");
 
@@ -35,6 +39,7 @@ export default (() => {
       "animate__flash"
     );
 
+    // clear start screen
     DOM.document.querySelector(".title").classList.add("animate__backOutUp");
     playClick.classList.add("animate__backOutDown");
     timeOut(null, 500, null, () => {
@@ -46,6 +51,7 @@ export default (() => {
     });
   }
 
+  // Status text
   function changeLevel(changeLevelTextCallback) {
     let status = DOM.document.querySelector(".status");
     status.classList.remove("animate__slideInDown", "animate__fadeInDown");
@@ -60,7 +66,68 @@ export default (() => {
     });
   }
 
-  function timeOut(className, timing, element = null, callback = null) {
+  // Start screen running lights
+  function runningLights() {
+    let index = 0;
+    let round = 0;
+    let interval = setInterval(() => {
+      func.flashPanel(DOM.document.getElementById(state.panelsID[index]), 800);
+      index++;
+
+      // running light interval flash
+      if (round >= 6 && index === state.panelsID.length) {
+        //clearInterval(interval);
+        func.clearEvents();
+        let timeout1 = setTimeout(() => {
+          for (let i = 0; i < state.panelsID.length; i++) {
+            func.flashPanel(DOM.document.getElementById(state.panelsID[i]), 500);
+          }
+
+          let timeout2 = setTimeout(() => {
+            runningLights();
+          }, 1000);
+          // storing timeouts 1
+          state.runningEvents.timeouts.push(timeout2);
+        }, 1100);
+        // storing timeouts 2
+        state.runningEvents.timeouts.push(timeout1);
+      }
+
+      // setting up for the above interval flash
+      if (index >= state.panelsID.length) {
+        index = 0;
+        round++;
+      }
+    }, 100);
+
+    // storing intervals
+    state.runningEvents.intervals.push(interval);
+  }
+
+  // Settings button
+  function toggleSettings(toHide) {
+    let settingsBtn = document.getElementById("settings");
+    settingsBtn.classList.remove("animate__fadeIn", "animate__fadeOut");
+    if (toHide) {
+      settingsBtn.classList.add("animate__fadeOut");
+    } else {
+      settingsBtn.classList.add("animate__fadeIn");
+    }
+  }
+
+  // Modal
+  function toggleModal(toHide) {
+    let settingsBtn = document.querySelector(".settings-modal");
+    settingsBtn.classList.remove("animate__slideInDown", "animate__slideOutUp");
+    if (toHide) {
+      settingsBtn.classList.add("animate__slideOutUp");
+    } else {
+      settingsBtn.classList.add("animate__slideInDown");
+    }
+  }
+
+   // Timeout helper
+   function timeOut(className, timing, element = null, callback = null) {
     setTimeout(() => {
       if (callback) {
         callback();
@@ -72,31 +139,12 @@ export default (() => {
     }, timing);
   }
 
-  function toggleSettings(toHide) {
-    let settingsBtn = document.getElementById("settings");
-    settingsBtn.classList.remove("animate__fadeIn", "animate__fadeOut");
-    if(toHide) {
-      settingsBtn.classList.add("animate__fadeOut");
-    } else {
-      settingsBtn.classList.add("animate__fadeIn");
-    }
-  }
-
-  function toggleModal(toHide) {
-    let settingsBtn = document.querySelector(".settings-modal");
-    settingsBtn.classList.remove("animate__slideInDown", "animate__slideOutUp");
-    if(toHide) {
-      settingsBtn.classList.add("animate__slideOutUp");
-    } else {
-      settingsBtn.classList.add("animate__slideInDown");
-    }
-  }
-
   return {
     introScreen: introScreen,
     startScreen: startScreen,
     changeLevel: changeLevel,
     toggleSettings: toggleSettings,
-    toggleModal, toggleModal
+    toggleModal,
+    toggleModal,
   };
 })();

@@ -117,25 +117,19 @@ body {
   @include overlay(4, rgba(0, 0, 0, 0));
   display: none;
   .settings-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
     height: 70px;
     background-color: rgba(0, 0, 0, 0.7);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     transform: translateY(-100%);
     color: white;
-    .volume {
-      position: relative;
-      .volume-up,
-      .volume-down {
-        position: absolute;
-        right: 20px;
-        top: 14px;
-        i {
-          font-size: 2.7em;
-        }
-      }
-      .volume-down {
-        display: none;
+    div {
+      i {
+        font-size: 2.7em;
       }
     }
   }
@@ -199,10 +193,6 @@ body {
   }
 }
 
-.volume {
-  position: relative;
-}
-
 .red {
   @include panel($red);
 }
@@ -225,6 +215,10 @@ body {
 
 .purple {
   @include panel($purple);
+}
+
+.toggleOff {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 %flash,
@@ -319,6 +313,19 @@ body {
       margin-top: 10em;
       font-size: 3em;
     }
+  }
+
+  .settings-overlay {
+    .settings-modal {
+      width: 500px;
+      margin-left: calc(50% - 250px);
+      gap: 5em;
+    }
+  }
+
+  #settings {
+    left: calc(50% - 250px);
+    top: 10px;
   }
 
   .container {
