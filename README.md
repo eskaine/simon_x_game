@@ -4,10 +4,10 @@
 
 ## Game Features
 
-- <img src="fonts/angle-double-up-solid.svg" width="10"> Max Speed
-- <img src="fonts/angle-up-solid.svg" width="10"> Gradual Speedup
-- <img src="fonts/redo-solid.svg" width="10"> Strict Mode / Retry
-- <img src="fonts/volume-up-solid.svg" width="10"> Volume
+- <img src="./fonts/angle-double-up-solid.svg" width="10"> Max Speed
+- <img src="./fonts/angle-up-solid.svg" width="10"> Gradual Speedup
+- <img src="./fonts/redo-solid.svg" width="10"> Strict Mode / Retry
+- <img src="./fonts/volume-up-solid.svg" width="10"> Volume
 
 ## Build with the following:
 - Parcel
