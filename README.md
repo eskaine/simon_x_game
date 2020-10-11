@@ -1,6 +1,7 @@
 # Simon X
 - Simon game with extra features
-- Upgraded from [Simon Game](https://github.com/eskaine/simon_game)
+- Upgraded from [Simon](https://github.com/eskaine/simon_game)
+- Live: [Simon X](https://eskaine.github.io/simon_x_game/)
 
 ## Game Features
 - <img src="./fonts/angle-double-up-solid.svg" width="10"> Max Speed
