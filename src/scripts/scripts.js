@@ -200,6 +200,7 @@ export default (() => {
     resetState: resetState,
     clearEvents: clearEvents,
     playerInput: playerInput,
-    flashPanel: flashPanel
+    flashPanel: flashPanel,
+    playAudio: playAudio
   };
 })();

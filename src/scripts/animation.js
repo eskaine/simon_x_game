@@ -22,7 +22,7 @@ export default (() => {
     timeOut("animate__fadeOut", 6000, underlay, () => {
       runningLights();
       toggleSettings(false);
-      timeOut(null, 2000, null, () => {
+      timeOut(null, 500, null, () => {
         underlay.style.display = "none";
       });
     });

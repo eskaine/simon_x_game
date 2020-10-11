@@ -17,6 +17,7 @@ window.addEventListener("load", (e) => {
 document.querySelector(".overlay").addEventListener("click", (e) => {
   if (e.target.classList.value.includes("overlay")) {
     func.clearEvents();
+    func.playAudio("assets/home.mp3");
     animate.startScreen();
   }
 });

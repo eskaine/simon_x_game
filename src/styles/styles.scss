@@ -108,7 +108,7 @@ body {
     font-family: "Ubuntu", sans-serif;
   }
   h3 {
-    margin-top: 11.5em;
+    margin-top: 13em;
     font-size: 2em;
   }
 }
@@ -154,7 +154,7 @@ body {
   height: 100vh;
   .status {
     margin-top: 1.5em;
-    margin-bottom: 2.5em;
+    margin-bottom: 2em;
     transform: translateY(-300%);
     #level {
       font-size: 3rem;
@@ -228,7 +228,8 @@ body {
 
 // animation
 #settings.animate__animated.animate__faster {
-  animation-duration: 0.1s;
+  -webkit-animation-duration: 0.1s;
+          animation-duration: 0.1s;
   &.animate__fadeIn {
     opacity: 1;
   }
@@ -307,6 +308,7 @@ body {
 
   .overlay {
     .title {
+      padding-top: 0;
       font-size: 6em;
     }
     h3 {
