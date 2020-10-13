@@ -105,7 +105,7 @@ body {
     font-family: "Ubuntu", sans-serif;
   }
   h3 {
-    margin-top: 13em;
+    margin-top: 12em;
     font-size: 2em;
   }
 }
@@ -181,9 +181,6 @@ body {
     width: -moz-fit-content;
     width: fit-content;
     align-self: center;
-    &:hover {
-      opacity: 0.6;
-    }
     .fa-play-circle {
       font-size: 5em;
     }
