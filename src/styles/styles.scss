@@ -31,9 +31,6 @@ $defaultFont: "Acme", sans-serif;
   border-radius: 50%;
   outline: none;
   @include brightness(80%, 0.5);
-  &:hover {
-    @extend %flash;
-  }
 }
 
 @mixin panel($color) {
@@ -229,7 +226,7 @@ body {
 // animation
 #settings.animate__animated.animate__faster {
   -webkit-animation-duration: 0.1s;
-          animation-duration: 0.1s;
+  animation-duration: 0.1s;
   &.animate__fadeIn {
     opacity: 1;
   }
@@ -273,25 +270,23 @@ body {
 .animate__animated.animate__fadeInDown {
   transform: translateY(-300%);
 }
+@media only screen and (max-device-width: 768px) {
+  %btn-panel {
+    &:active {
+      @include brightness(180%, 0.7);
+    }
+  }
+}
 
-@media only screen and (min-device-width: 768px) {
+@media only screen and (min-device-width: 769px) {
   $btnSize: 9em;
-
-  @mixin brightness($brightness, $opacity) {
-    border: 12px solid rgba(0, 0, 0, $opacity);
-  }
-
-  %flash,
-  .active {
-    @include brightness(180%, 0.7);
-  }
 
   %btn-panel {
     width: $btnSize;
     height: $btnSize;
     @include brightness(80%, 0.5);
     &:hover {
-      @extend %flash;
+      @include brightness(180%, 0.7);
     }
   }
 
@@ -356,6 +351,9 @@ body {
         font-size: 7em;
       }
     }
+  }
+  .active {
+    @include brightness(180%, 0.7);
   }
 }
 
