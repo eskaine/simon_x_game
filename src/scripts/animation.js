@@ -11,18 +11,21 @@ export default (() => {
 
     timeOut("animate__fadeInDown", 1500, brand, () => {
       brandOverlay.classList.remove("animate__fadeIn");
+      timeOut("animate__bounce", 700, brand, () => {
+        brand.classList.remove("animate__fadeInDown");
+      });
     });
 
-    timeOut("animate__fadeOut", 3500, brandOverlay, () => {
-      timeOut(null, 2000, null, () => {
+    timeOut("animate__fadeOut", 3800, brandOverlay, () => {
+      timeOut(null, 2300, null, () => {
         brandOverlay.style.display = "none";
       });
     });
 
-    timeOut("animate__fadeOut", 6000, underlay, () => {
+    timeOut("animate__fadeOut", 6300, underlay, () => {
       runningLights();
       toggleSettings(false);
-      timeOut(null, 500, null, () => {
+      timeOut(null, 300, null, () => {
         underlay.style.display = "none";
       });
     });
