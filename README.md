@@ -9,7 +9,7 @@
 - <img src="./fonts/redo-solid.svg" width="10"> Strict Mode / Retry
 - <img src="./fonts/volume-up-solid.svg" width="10"> Volume
 
-## Build with the following:
+## Technologies/Libraries/Frameworks:
 - Parcel
 - Animate.css
 - Javascript
